@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployement
+metadata:
+  name: myapp-deployment
+  labels: myapp-nginx
+spec:
+  replicas: 1
+  selector:
+    matchLables:
+      app: myapp-ngnix
+  template:
+    metadata:
+      lables:
+        app: myapp-ngnix
+    spec:
+      containers:
+        - name: myapp-ngnix
+          image: paste here
+          ports:
+            - containerPort: 80
+      nodeSelector:
+        app: system-apps
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-service
+  labels:
+    app: myapp-ngnix
+spec:
+  type: LoadBalancer
+  selector:
+    app: myapp-ngnix
+  ports:
+    - port: 80
+      targetPort: 80
+  
