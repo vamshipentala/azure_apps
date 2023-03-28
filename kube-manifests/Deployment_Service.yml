@@ -1,37 +1,35 @@
 apiVersion: apps/v1
-kind: Deployement
-metadata:
+kind: Deployment 
+metadata: #Dictionary
   name: myapp-deployment
-  labels: myapp-nginx
-spec:
-  replicas: 1
+spec: # Dictionary
+  replicas: 3
   selector:
-    matchLables:
-      app: myapp-ngnix
-  template:
-    metadata:
-      lables:
-        app: myapp-ngnix
+    matchLabels:
+      app: myapp3
+  template:  
+    metadata: # Dictionary
+      name: myapp3-pod
+      labels: # Dictionary
+        app: myapp3  # Key value paids
     spec:
-      containers:
-        - name: myapp-ngnix
-          image: paste here
-          ports:
-            - containerPort: 80
-      nodeSelector:
-        app: system-apps
+      containers: # List
+        - name: myapp3-container
+          image: vamshipentala/vamshiapp:v1
+          imagePullPolicy: Always
+          ports: 
+            - containerPort: 80  
 ---
 apiVersion: v1
-kind: Service
+kind: Service 
 metadata:
-  name: myapp-service
-  labels:
-    app: myapp-ngnix
+  name: deployment-loadbalancer-service
 spec:
-  type: LoadBalancer
+  type: LoadBalancer # ClusterIp, # NodePort
   selector:
-    app: myapp-ngnix
-  ports:
-    - port: 80
-      targetPort: 80
+    app: myapp3
+  ports: 
+    - name: http
+      port: 80 # Service Port
+      targetPort: 80 # Container Port
   
