@@ -15,7 +15,7 @@ spec: # Dictionary
     spec:
       containers: # List
         - name: myapp3-container
-          image: vamshipentala/vamshiapp:v1
+          image: myacr4.azurecr.io/vamimage:5 #vamshipentala/vamshiapp:v1
           imagePullPolicy: Always
           ports: 
             - containerPort: 80  
