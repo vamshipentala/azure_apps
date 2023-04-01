@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: testingdeployaks 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: testingdeployaks
+  template:
+    metadata:
+      labels:
+        app: testingdeployaks 
+    spec:
+      containers:
+        - name: testingdeployaks 
+          image: myacr4.azurecr.io/testingdeployaks
+          ports:
+          - containerPort: 80
